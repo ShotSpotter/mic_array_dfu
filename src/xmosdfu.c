@@ -7,6 +7,7 @@
 /* the device's vendor and product id */
 #define XMOS_VID 0x20B1
 #define SEEED_VID 0x2886
+#define MINIDSP_VID 0x2752
 
 #define XMOS_XCORE_AUDIO_AUDIO2_PID 0x3066
 #define XMOS_L1_AUDIO2_PID 0x0002
@@ -15,6 +16,7 @@
 #define XMOS_SU1_AUDIO2_PID 0x0008
 #define XMOS_U8_MFA_AUDIO2_PID 0x000A
 #define SEEED_RESPEAKER_MIC_ARRAY_PID 0x0007
+#define MINIDSP_UMA8_PID 0x001C
 
 unsigned short pidList[] = {XMOS_XCORE_AUDIO_AUDIO2_PID,
                             XMOS_L1_AUDIO2_PID,
@@ -22,7 +24,8 @@ unsigned short pidList[] = {XMOS_XCORE_AUDIO_AUDIO2_PID,
                             XMOS_L2_AUDIO2_PID,
                             XMOS_SU1_AUDIO2_PID,
                             XMOS_U8_MFA_AUDIO2_PID,
-                            SEEED_RESPEAKER_MIC_ARRAY_PID};
+                            SEEED_RESPEAKER_MIC_ARRAY_PID,
+                            MINIDSP_UMA8_PID};
 
 unsigned int XMOS_DFU_IF = 0;
 
@@ -64,7 +67,7 @@ static int find_xmos_device(unsigned int id, unsigned int list)
         libusb_get_device_descriptor(dev, &desc);
         printf("VID = 0x%x, PID = 0x%x, BCDDevice: 0x%x\n", desc.idVendor, desc.idProduct, desc.bcdDevice);
 
-        if (desc.idVendor == XMOS_VID || desc.idVendor == SEEED_VID)
+        if (desc.idVendor == XMOS_VID || desc.idVendor == SEEED_VID || desc.idVendor == MINIDSP_VID)
         {
             for (int j = 0; j < sizeof(pidList) / sizeof(unsigned short); j++)
             {
